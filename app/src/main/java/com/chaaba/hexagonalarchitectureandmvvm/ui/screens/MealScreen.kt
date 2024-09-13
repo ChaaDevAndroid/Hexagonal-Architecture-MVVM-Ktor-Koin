@@ -20,24 +20,23 @@ import org.koin.compose.koinInject
 @Composable
 fun MealScreen(modifier: Modifier) {
     val mealViewModel: MealViewModel = koinInject()
-
     val uiState by mealViewModel.uiState.collectAsState()
-
-    var meals by remember {
-        mutableStateOf<List<Meal>>(emptyList())
-    }
+    var meals by remember { mutableStateOf<List<Meal>>(emptyList()) }
 
     LaunchedEffect(uiState) {
         when (val state = uiState) {
             ResourceUiState.Empty -> {
                 println("Empty")
             }
+
             is ResourceUiState.Error -> {
-                println(state.message)
+                println("Error : ${state.message}")
             }
+
             ResourceUiState.Loading -> {
-                println("Loading")
+                println("Loading...")
             }
+
             is ResourceUiState.Success -> {
                 meals = state.data
             }
