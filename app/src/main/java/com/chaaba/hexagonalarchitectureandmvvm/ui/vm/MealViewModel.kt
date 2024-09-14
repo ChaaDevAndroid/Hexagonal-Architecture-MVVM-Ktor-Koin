@@ -14,17 +14,18 @@ import com.chaaba.library.Result
 
 class MealViewModel(private val mealRepo: MealRepo) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<ResourceUiState<List<Meal>>> = MutableStateFlow(ResourceUiState.Empty)
+    private val _uiState: MutableStateFlow<ResourceUiState<List<Meal>>> =
+        MutableStateFlow(ResourceUiState.Empty)
     val uiState = _uiState.asStateFlow()
 
     init {
         getMeals()
     }
 
-    fun getMeals() = viewModelScope.launch {
+    private fun getMeals() = viewModelScope.launch {
         _uiState.emit(ResourceUiState.Loading)
         mealRepo
-            .getMealsFromRemote()
+            .getMeals()
             .catch {
                 _uiState.emit(ResourceUiState.Error(it.message, it))
             }.collect { result ->
@@ -32,8 +33,10 @@ class MealViewModel(private val mealRepo: MealRepo) : ViewModel() {
                     is Result.Success -> {
                         result.value.let {
                             _uiState.emit(ResourceUiState.Success(it))
+                            mealRepo.insertMeal(it)
                         }
                     }
+
                     is Result.Failure -> {
                         _uiState.emit(ResourceUiState.Error(result.message, result.throwable))
                     }

@@ -71,6 +71,7 @@ dependencies {
     //domain
     implementation(project(":domain"))
     implementation(project(":network"))
+    implementation(project(":persistence"))
 
     //glide
     implementation (libs.glide)

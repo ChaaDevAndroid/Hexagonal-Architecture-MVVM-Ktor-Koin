@@ -21,9 +21,13 @@ kotlinx-serialization = "1.5.1"
 koinAndroid = "3.5.3"
 koinAndroidxCompose = "3.6.0-wasm-alpha2"
 koin-bom = "3.6.0-wasm-alpha2"
+roomRuntime = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }

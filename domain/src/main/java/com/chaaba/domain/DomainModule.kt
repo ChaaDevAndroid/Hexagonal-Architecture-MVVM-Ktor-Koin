@@ -8,7 +8,7 @@ import org.koin.dsl.module
 object DomainModule {
 
     private val repositoryModule = module {
-        single<MealRepo> { MealRepoAdapter(get()) }
+        single<MealRepo> { MealRepoAdapter(get(),get()) }
     }
 
     val modules: List<Module> = listOf(repositoryModule)
